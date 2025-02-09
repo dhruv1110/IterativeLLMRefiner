@@ -1,10 +1,11 @@
+import json
 import logging
-from ollama import AsyncClient, Client
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
+from ollama import AsyncClient, Client
 from pydantic import BaseModel
-import json
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -44,12 +45,15 @@ async def get_available_models():
         raise HTTPException(status_code=500, detail="Cannot fetch models from Ollama")
 
 
-@app.post("/pull-model")
-def pull_model(model_name: str):
+@app.get("/pull-model")
+async def pull_model(model_name: str):
     try:
-        client.pull_model(model_name)
-        logging.info(f"Successfully pulled model: {model_name}")
-        return {"message": f"Model {model_name} pulled successfully"}
+        async def event_stream():
+            async for chunk in await asyncClient.pull(model_name, insecure=False, stream=True):
+                yield json.dumps(chunk.dict()) + "\n"  # Convert to dictionary
+
+        logging.info(f"Started pulling model: {model_name}")
+        return StreamingResponse(event_stream(), media_type="application/json")
     except Exception as e:
         logging.error(f"Failed to pull model: {e}")
         raise HTTPException(status_code=500, detail="Cannot pull model from Ollama")

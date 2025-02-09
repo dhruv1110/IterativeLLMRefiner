@@ -1,0 +1,137 @@
+{
+  "8GB": {
+    "GENERAL": [
+      "llama3.1:7b-q4",
+      "mistral:7b-q4",
+      "orca-mini:7b-q4"
+    ],
+    "RESEARCH": [
+      "gemma:2b-q4",
+      "gemma2:2b-q4",
+      "deepseek-r1:7b-q4"
+    ],
+    "REASONING": [
+      "deepseek-r1:7b-q4",
+      "deepseek-v3:7b-q4",
+      "qwen2.5:7b-q4"
+    ],
+    "CODING": [
+      "codellama:7b-q4",
+      "qwen2.5-coder:7b-q4",
+      "deepseek-coder:7b-q4"
+    ],
+    "VISION": [
+      "llava:7b-q4",
+      "llama3.2-vision:7b-q4",
+      "llava-llama3:7b-q4"
+    ]
+  },
+  "16GB": {
+    "GENERAL": [
+      "llama3.2:7b-q8",
+      "mistral:7b-q8",
+      "phi4:14b-q4"
+    ],
+    "RESEARCH": [
+      "gemma:7b-q4",
+      "gemma2:7b-q4",
+      "deepseek-r1:7b-q8"
+    ],
+    "REASONING": [
+      "deepseek-r1:7b-q8",
+      "deepseek-v3:7b-q8",
+      "qwen2.5:7b-q8"
+    ],
+    "CODING": [
+      "codellama:7b-q8",
+      "qwen2.5-coder:7b-q8",
+      "deepseek-coder-v2:7b-q4"
+    ],
+    "VISION": [
+      "llava:7b-q8",
+      "llama3.2-vision:7b-q8",
+      "llava-llama3:7b-q8"
+    ]
+  },
+  "32GB": {
+    "GENERAL": [
+      "llama3.3:13b-q8",
+      "phi4:32b-q4",
+      "mistral:14b-q8"
+    ],
+    "RESEARCH": [
+      "gemma:7b-q8",
+      "gemma2:7b-q8",
+      "deepseek-r1:14b-q8"
+    ],
+    "REASONING": [
+      "deepseek-r1:14b-q8",
+      "deepseek-v3:14b-q8",
+      "qwen2.5:14b-q8"
+    ],
+    "CODING": [
+      "codellama:13b-q8",
+      "qwen2.5-coder:13b-q8",
+      "deepseek-coder:13b-q8"
+    ],
+    "VISION": [
+      "llava:13b-q8",
+      "llama3.2-vision:13b-q8",
+      "llava-llama3:13b-q8"
+    ]
+  },
+  "64GB": {
+    "GENERAL": [
+      "llama3.3:70b-q4",
+      "phi4:70b-q4",
+      "qwen2.5:70b-q4"
+    ],
+    "RESEARCH": [
+      "gemma:70b-q4",
+      "gemma2:70b-q4",
+      "mixtral:70b-q4"
+    ],
+    "REASONING": [
+      "deepseek-r1:70b-q4",
+      "deepseek-v3:70b-q4",
+      "mistral:70b-q4"
+    ],
+    "CODING": [
+      "codellama:70b-q4",
+      "qwen2.5-coder:70b-q4",
+      "deepseek-coder:70b-q4"
+    ],
+    "VISION": [
+      "llava:70b-q4",
+      "llama3.2-vision:70b-q4",
+      "llava-llama3:70b-q4"
+    ]
+  },
+  "128GB": {
+    "GENERAL": [
+      "llama3.3:70b-q8",
+      "phi4:110b-q8",
+      "mistral:110b-q8"
+    ],
+    "RESEARCH": [
+      "gemma:110b-q8",
+      "gemma2:110b-q8",
+      "mixtral:110b-q8"
+    ],
+    "REASONING": [
+      "deepseek-r1:110b-q8",
+      "deepseek-v3:110b-q8",
+      "qwen2.5:110b-q8"
+    ],
+    "CODING": [
+      "codellama:110b-q8",
+      "qwen2.5-coder:110b-q8",
+      "deepseek-coder:110b-q8"
+    ],
+    "VISION": [
+      "llava:110b-q8",
+      "llama3.2-vision:110b-q8",
+      "llava-llama3:110b-q8"
+    ]
+  }
+}

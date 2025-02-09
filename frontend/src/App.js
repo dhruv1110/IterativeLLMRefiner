@@ -111,6 +111,12 @@ function App() {
                 setLoading(false);
             }
         );
+
+        fetchAvailableModels().then((data) => {
+            setAvailableModels(data.models);
+        }).catch(() => {
+            setAvailableModels([]);
+        });
     };
 
     const filteredModels = selectedRam && selectedUseCase ? models[selectedRam][selectedUseCase] : [];
@@ -163,19 +169,26 @@ function App() {
                 <div className="models-container">
                     {filteredModels.length > 0 ? (
                         filteredModels.map((model) => (
-                            <label key={model} className="model-checkbox">
-                                <input
-                                    type="checkbox"
-                                    value={model}
-                                    onChange={(e) => {
-                                        const selected = e.target.checked
-                                            ? [...selectedModels, model]
-                                            : selectedModels.filter((m) => m !== model);
-                                        setSelectedModels(selected);
-                                    }}
-                                />
-                                {model} - {modelInfo[model]?.parameters} parameters, {modelInfo[model]?.quantization} quantization, {modelInfo[model]?.estimated_memory_required_gb} GB memory {availableModels.includes(model) ? "(Available)" : "(Not Available)"}
-                            </label>
+                            <div key={model} className="model-item">
+                                <label className="model-checkbox">
+                                    <input
+                                        type="checkbox"
+                                        value={model}
+                                        onChange={(e) => {
+                                            const selected = e.target.checked
+                                                ? [...selectedModels, model]
+                                                : selectedModels.filter((m) => m !== model);
+                                            setSelectedModels(selected);
+                                        }}
+                                    />
+                                    {model} - {modelInfo[model]?.parameters} parameters, {modelInfo[model]?.quantization} quantization, {modelInfo[model]?.estimated_memory_required_gb} GB memory {availableModels.includes(model) ? "(Available)" : "(Not Available)"}
+                                </label>
+                                {!availableModels.includes(model) && (
+                                    <button onClick={() => handlePullModel(model)} disabled={loading} className="pull-button">
+                                        {loading ? <div className="spinner"></div> : "Pull Model"}
+                                    </button>
+                                )}
+                            </div>
                         ))
                     ) : (
                         <p>No models found. Make sure Ollama is running.</p>
@@ -214,10 +227,6 @@ function App() {
                 </div>
 
                 <div className="download-container">
-                    <button onClick={() => handlePullModel("llama3.2")} disabled={loading} className="submit-button">
-                        {loading ? <div className="spinner"></div> : "Pull Model"}
-                    </button>
-
                     {loading && (
                         <div className="progress-container">
                             <p>{downloadProgress.status}</p>

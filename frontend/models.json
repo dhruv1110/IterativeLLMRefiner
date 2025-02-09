@@ -1,9 +1,9 @@
 {
   "8GB": {
     "GENERAL": [
-      "llama3.1:7b-q4",
-      "mistral:7b-q4",
-      "orca-mini:7b-q4"
+      "llama3.2:3b",
+      "orca-mini:7b",
+      "mistral:7b"
     ],
     "RESEARCH": [
       "gemma:2b-q4",

@@ -1,4 +1,19 @@
 {
+  "llama3.2:3b": {
+    "parameters": "3B",
+    "quantization": "Q4_K_M",
+    "estimated_memory_required_gb": "2.0"
+  },
+    "orca-mini:7b": {
+        "parameters": "7B",
+        "quantization": "Q4_0",
+        "estimated_memory_required_gb": "3.85"
+    },
+  "mistral:7b": {
+    "parameters": "7B",
+    "quantization": "Q4_0",
+    "estimated_memory_required_gb": "4.1"
+  },
   "llama3.1:7b-q4": {
     "parameters": "7B",
     "quantization": "4-bit",

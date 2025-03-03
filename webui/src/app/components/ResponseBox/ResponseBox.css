@@ -1,0 +1,201 @@
+/* General Markdown Styling - GitHub Style */
+.response-box {
+    background-color: #ffffff;
+    color: #24292e;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e1e4e8;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+    font-size: 16px;
+    line-height: 1.6;
+    max-height: 500px;
+    overflow-y: auto;
+    transition: background-color 0.3s, color 0.3s;
+    font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    .response-box {
+        background-color: #0d1117;
+        color: #c9d1d9;
+        border: 1px solid #30363d;
+        box-shadow: 0 3px 6px rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* Headings */
+.response-box h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #d0d7de;
+    padding-bottom: 5px;
+}
+
+.response-box h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #d0d7de;
+    padding-bottom: 5px;
+}
+
+.response-box h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+/* Lists */
+.response-box ul,
+.response-box ol {
+    padding-left: 24px;
+    margin-bottom: 16px;
+}
+
+.response-box ul {
+    list-style: disc;
+}
+
+.response-box ol {
+    list-style: decimal;
+}
+
+.response-box li {
+    margin-bottom: 4px;
+}
+
+/* Blockquotes */
+.response-box blockquote {
+    border-left: 4px solid #d0d7de;
+    padding: 8px 12px;
+    margin: 12px 0;
+    font-style: italic;
+    color: #57606a;
+    background-color: #f6f8fa;
+    border-radius: 6px;
+    display: block;
+    white-space: pre-wrap; /* ✅ Preserves new lines while wrapping text */
+}
+
+/* Ensure blockquote paragraphs do not add extra spacing */
+.response-box blockquote p {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+/* Prevents stacked blockquotes from adding extra space */
+.response-box blockquote + blockquote {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    .response-box blockquote {
+        border-left: 4px solid #58a6ff;
+        color: #8b949e;
+        background-color: #161b22;
+    }
+}
+
+
+
+
+
+
+/* Tables */
+.response-box table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.response-box th,
+.response-box td {
+    border: 1px solid #d0d7de;
+    padding: 10px;
+    text-align: left;
+}
+
+.response-box th {
+    background-color: #f6f8fa;
+    color: #24292e;
+    font-weight: bold;
+}
+
+/* Dark Mode Tables */
+@media (prefers-color-scheme: dark) {
+    .response-box table {
+        background-color: #161b22;
+    }
+
+    .response-box th {
+        background-color: #0d1117;
+        color: #c9d1d9;
+    }
+
+    .response-box td {
+        border: 1px solid #30363d;
+    }
+}
+
+/*!* Inline Code *!*/
+/*.response-box code {*/
+/*    font-family: "Fira Code", "Courier New", monospace;*/
+/*    background-color: rgba(175, 184, 193, 0.2);*/
+/*    padding: 2px 6px;*/
+/*    border-radius: 4px;*/
+/*    font-size: 14px;*/
+/*    color: #0550ae;*/
+/*}*/
+
+/*!* Dark Mode Inline Code *!*/
+/*@media (prefers-color-scheme: dark) {*/
+/*    .response-box code {*/
+/*        background-color: rgba(240, 246, 252, 0.15);*/
+/*        color: #79c0ff;*/
+/*    }*/
+/*}*/
+
+/* Links */
+.response-box a {
+    color: #0969da;
+    text-decoration: none;
+}
+
+.response-box a:hover {
+    text-decoration: underline;
+}
+
+/* Horizontal Rule */
+.response-box hr {
+    border: none;
+    border-top: 1px solid #d0d7de;
+    margin: 16px 0;
+}
+
+/* Dark Mode Horizontal Rule */
+@media (prefers-color-scheme: dark) {
+    .response-box hr {
+        border-top: 1px solid #30363d;
+    }
+}
+
+/* Task Lists */
+.response-box input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* Task List Styling */
+.response-box ul li input[type="checkbox"] {
+    margin-right: 8px;
+}

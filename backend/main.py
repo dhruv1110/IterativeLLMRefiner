@@ -93,7 +93,6 @@ async def stream_response(prompt: str, models: list, needReasoning: bool):
     """Stream the LLM responses from Ollama with progress updates."""
 
     async def event_stream():
-
         domain = get_domain(prompt)
         logging.info(f"Domain: {domain}")
         yield f"""Looks like the domain of the prompt is: {domain}"""
@@ -130,7 +129,7 @@ Processing with {model}
                     model_prompt = f"""
 Here is my initial prompt: {prompt}
 I tried to improve it with the previous model, and it produced below result but it can be way better:
-{whole_model_response} 
+{whole_model_response}
 Please improve the response quality without making any comparisons or referencing with the previous model's response.
 """
 

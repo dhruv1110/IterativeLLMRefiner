@@ -1,101 +1,221 @@
-import Image from "next/image";
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { generateResponse, pullModel, fetchAvailableModels } from "./api";
+import "./styles.css";
+import {LLMModels, llmModels} from "@/app/models/LLMModels";
+import {LLMModelsInfo, llmModelsInfo} from "@/app/models/LLMModelsInfo";
+import ResponseBox from "@/app/components/ResponseBox/ResponseBox";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [prompt, setPrompt] = useState("");
+  const [models, setModels] = useState<LLMModels>({});
+  const [selectedModels, setSelectedModels] = useState<string[]>([]);
+  const [response, setResponse] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [timeoutError, setTimeoutError] = useState("");
+  const [needReasoning, setNeedReasoning] = useState(false);
+  const [ramOptions, setRamOptions] = useState<string[]>([]);
+  const [useCaseOptions, setUseCaseOptions] = useState<string[]>([]);
+  const [selectedRam, setSelectedRam] = useState<string>("");
+  const [selectedUseCase, setSelectedUseCase] = useState("");
+  const [modelInfo, setModelInfo] = useState<LLMModelsInfo>({});
+  const [availableModels, setAvailableModels] = useState<string[]>([]);
+  const [downloadProgress, setDownloadProgress] = useState({ status: "", completed: 0, total: 0 });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+
+  useEffect(() => {
+    setModels(llmModels);
+    setRamOptions(Object.keys(llmModels));
+    setUseCaseOptions(Object.keys(llmModels["8GB"]));
+
+    setModelInfo(llmModelsInfo)
+
+    fetchAvailableModels().then((data) => {
+      setAvailableModels(data.models);
+    }).catch(() => {
+      setAvailableModels([]);
+    });
+  }, []);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setResponse("");
+    setTimeoutError("");
+
+    await generateResponse(
+        prompt,
+        selectedModels,
+        needReasoning,
+        (chunk: string) => setResponse(prev => prev + chunk),
+        (errorMessage: React.SetStateAction<string>) => {
+          setTimeoutError(errorMessage);
+          setLoading(false);
+        }
+    );
+
+    setLoading(false);
+  };
+
+  const handleRamChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    console.log(e.target.value);
+    setSelectedRam(e.target.value);
+    setSelectedModels([]);
+    fetchAvailableModels().then((data) => {
+      setAvailableModels(data.models);
+    }).catch(() => {
+      setAvailableModels([]);
+    });
+  };
+
+  const handleUseCaseChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    console.log(e.target.value);
+    setSelectedUseCase(e.target.value);
+    setSelectedModels([]);
+    fetchAvailableModels().then((data) => {
+      setAvailableModels(data.models);
+    }).catch(() => {
+      setAvailableModels([]);
+    });
+  };
+
+  const handlePullModel = async (modelName: any) => {
+    if (!modelName) {
+      setTimeoutError("Model name is required.");
+      return;
+    }
+
+    setLoading(true);
+    setResponse("");
+    setTimeoutError("");
+    setDownloadProgress({ status: "Starting...", completed: 0, total: 0 });
+
+    await pullModel(
+        modelName,
+        (chunk: string) => {
+          const data = JSON.parse(chunk);
+          if (data.status === "success") {
+            setDownloadProgress({ status: "Download completed", completed: data.completed, total: data.total });
+            setLoading(false);
+          } else {
+            setDownloadProgress({ status: data.status, completed: data.completed || 0, total: data.total || 0 });
+          }
+        },
+        (error: { message: string; }) => {
+          setTimeoutError("Error pulling model: " + error.message);
+          setLoading(false);
+        },
+        (message: string) => {
+          setTimeoutError(message);
+          setLoading(false);
+        }
+    );
+
+    fetchAvailableModels().then((data) => {
+      setAvailableModels(data.models);
+    }).catch(() => {
+      setAvailableModels([]);
+    });
+  };
+
+  const filteredModels: string[] = (selectedRam && selectedUseCase) ? models[selectedRam][selectedUseCase] : [];
+
+  return (
+      <div>
+        <nav className="navbar">
+          <h1>LLM Chain Chat</h1>
+        </nav>
+        <div className="chat-container">
+          <div className="input-container">
+            <input
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                placeholder="Enter your prompt"
+                className="prompt-input"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <label className="reasoning-checkbox">
+              <input
+                  type="checkbox"
+                  checked={needReasoning}
+                  onChange={(e) => setNeedReasoning(e.target.checked)}
+              />
+              Need Reasoning
+            </label>
+          </div>
+
+          <div className="dropdown-container">
+            <label>
+              Select RAM:
+              <select value={selectedRam} onChange={handleRamChange}>
+                <option value="">Select RAM</option>
+                {ramOptions.map((ram) => (
+                    <option key={ram} value={ram}>{ram}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Select Use Case:
+              <select value={selectedUseCase} onChange={handleUseCaseChange}>
+                <option value="">Select Use Case</option>
+                {useCaseOptions.map((useCase) => (
+                    <option key={useCase} value={useCase}>{useCase}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <h3>Select Models for Chaining:</h3>
+          <div className="models-container">
+            {filteredModels.length > 0 ? (
+                filteredModels.map((model: string) => (
+                    <div key={model} className="model-item">
+                      <label className="model-checkbox">
+                        <input
+                            type="checkbox"
+                            value={model}
+                            onChange={(e) => {
+                              const selected = e.target.checked
+                                  ? [...selectedModels, model]
+                                  : selectedModels.filter((m) => m !== model);
+                              setSelectedModels(selected);
+                            }}
+                        />
+                        {model} - {modelInfo[model]?.parameters} parameters, {modelInfo[model]?.quantization} quantization, {modelInfo[model]?.estimated_memory_required_gb} GB memory {availableModels.includes(model) ? "(Available)" : "(Not Available)"}
+                      </label>
+                      {!availableModels.includes(model) && (
+                          <button onClick={() => handlePullModel(model as string)} disabled={loading} className="pull-button">
+                            {loading ? <div className="spinner"></div> : "Pull Model"}
+                          </button>
+                      )}
+                    </div>
+                ))
+            ) : (
+                <p>No models found. Make sure Ollama is running.</p>
+            )}
+          </div>
+
+          <button onClick={handleSubmit} disabled={loading} className="submit-button">
+            {loading ? <div className="spinner"></div> : "Submit"}
+          </button>
+
+          {loading && <p>Processing your request... Please wait.</p>}
+          {timeoutError && <p style={{ color: "red" }}>{timeoutError}</p>}
+
+          <ResponseBox response={response} />
+
+          <div className="download-container">
+            {loading && (
+                <div className="progress-container">
+                  <p>{downloadProgress.status}</p>
+                  <progress value={downloadProgress.completed} max={downloadProgress.total}></progress>
+                  <p>
+                    {((downloadProgress.completed / (1024 * 1024 * 1024)).toFixed(2))} GB /
+                    {((downloadProgress.total / (1024 * 1024 * 1024)).toFixed(2))} GB
+                  </p>
+                </div>
+            )}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
   );
 }

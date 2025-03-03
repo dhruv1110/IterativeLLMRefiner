@@ -1,0 +1,377 @@
+{
+    "llama3.2:3b": {
+      "parameters": "3B",
+      "quantization": "Q4_K_M",
+      "estimated_memory_required_gb": "2.0"
+    },
+    "orca-mini:7b": {
+      "parameters": "7B",
+      "quantization": "Q4_0",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "mistral:7b": {
+      "parameters": "7B",
+      "quantization": "Q4_0",
+      "estimated_memory_required_gb": "4.1"
+    },
+    "llama3.1:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "mistral:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "orca-mini:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "gemma:2b-q4": {
+      "parameters": "2B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "1.1"
+    },
+    "gemma2:2b-q4": {
+      "parameters": "2B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "1.1"
+    },
+    "deepseek-r1:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "deepseek-v3:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "qwen2.5:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "codellama:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "qwen2.5-coder:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "deepseek-coder:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "llava:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "llama3.2-vision:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "llava-llama3:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "llama3.2:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "mistral:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "phi4:14b-q4": {
+      "parameters": "14B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "gemma:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "gemma2:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "deepseek-r1:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "deepseek-v3:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "qwen2.5:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "codellama:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "qwen2.5-coder:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "deepseek-coder-v2:7b-q4": {
+      "parameters": "7B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "3.85"
+    },
+    "llava:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "llama3.2-vision:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "llava-llama3:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "llama3.3:13b-q8": {
+      "parameters": "13B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "14.3"
+    },
+    "phi4:32b-q4": {
+      "parameters": "32B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "17.6"
+    },
+    "mistral:14b-q8": {
+      "parameters": "14B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "15.4"
+    },
+    "gemma:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "gemma2:7b-q8": {
+      "parameters": "7B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "7.7"
+    },
+    "deepseek-r1:14b-q8": {
+      "parameters": "14B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "15.4"
+    },
+    "deepseek-v3:14b-q8": {
+      "parameters": "14B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "15.4"
+    },
+    "qwen2.5:14b-q8": {
+      "parameters": "14B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "15.4"
+    },
+    "codellama:13b-q8": {
+      "parameters": "13B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "14.3"
+    },
+    "qwen2.5-coder:13b-q8": {
+      "parameters": "13B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "14.3"
+    },
+    "deepseek-coder:13b-q8": {
+      "parameters": "13B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "14.3"
+    },
+    "llava:13b-q8": {
+      "parameters": "13B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "14.3"
+    },
+    "llama3.2-vision:13b-q8": {
+      "parameters": "13B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "14.3"
+    },
+    "llava-llama3:13b-q8": {
+      "parameters": "13B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "14.3"
+    },
+    "llama3.3:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "phi4:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "qwen2.5:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "gemma:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "gemma2:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "mixtral:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "deepseek-r1:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "deepseek-v3:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "mistral:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "codellama:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "qwen2.5-coder:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "deepseek-coder:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "llava:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "llama3.2-vision:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "llava-llama3:70b-q4": {
+      "parameters": "70B",
+      "quantization": "4-bit",
+      "estimated_memory_required_gb": "38.5"
+    },
+    "llama3.3:70b-q8": {
+      "parameters": "70B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "77"
+    },
+    "phi4:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "mistral:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "gemma:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "gemma2:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "mixtral:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "deepseek-r1:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "deepseek-v3:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "qwen2.5:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "codellama:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "qwen2.5-coder:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "deepseek-coder:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "llava:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "llama3.2-vision:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    },
+    "llava-llama3:110b-q8": {
+      "parameters": "110B",
+      "quantization": "8-bit",
+      "estimated_memory_required_gb": "121"
+    }
+}

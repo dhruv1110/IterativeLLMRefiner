@@ -1,0 +1,150 @@
+/* Light Mode Defaults */
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --background-light: #f4f4f4;
+    --background-dark: #1e1e1e;
+    --card-light: #fff;
+    --card-dark: #2a2a2a;
+    --text-light: #333;
+    --text-dark: #ddd;
+    --border-light: #ccc;
+    --border-dark: #444;
+    --button-disabled: #aaa;
+    --input-bg-light: #fff;
+    --input-bg-dark: #333;
+}
+
+/* Base Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-light);
+    color: var(--text-light);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Chat Container */
+.chat-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--card-light);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Inputs & Dropdowns */
+.prompt-input,
+.response-box,
+select {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    width: 100%;
+    background-color: var(--input-bg-light);
+    color: var(--text-light);
+    transition: background-color 0.3s, border 0.3s, color 0.3s;
+}
+
+/* Disabled elements */
+select:disabled,
+input:disabled,
+.reasoning-checkbox label,
+.model-checkbox label {
+    color: #999 !important;
+}
+
+/* Dropdown Styles */
+select {
+    appearance: none;
+    background-color: var(--input-bg-light);
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Checkboxes */
+.reasoning-checkbox,
+.model-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+}
+
+/* Submit Button */
+.submit-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-button:disabled {
+    background-color: var(--button-disabled);
+    cursor: not-allowed;
+}
+
+.submit-button:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    transform: scale(1.05);
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--background-dark);
+        color: var(--text-dark);
+    }
+
+    .chat-container {
+        background-color: var(--card-dark);
+        border: 1px solid var(--border-dark);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar {
+        background-color: var(--primary-hover);
+    }
+
+    .prompt-input,
+    .response-box,
+    select {
+        background-color: var(--input-bg-dark);
+        color: var(--text-dark);
+        border: 1px solid var(--border-dark);
+    }
+
+    .prompt-input::placeholder {
+        color: #bbb;
+    }
+
+    select {
+        background-color: var(--input-bg-dark);
+        border: 1px solid var(--border-dark);
+        color: var(--text-dark);
+    }
+
+    /* Ensure Disabled Elements Are Readable */
+    .reasoning-checkbox label,
+    .model-checkbox label,
+    select:disabled,
+    input:disabled {
+        color: #bbb !important;
+    }
+
+    .submit-button {
+        background-color: var(--primary-color);
+    }
+
+    .submit-button:hover:not(:disabled) {
+        background-color: var(--primary-hover);
+    }
+}

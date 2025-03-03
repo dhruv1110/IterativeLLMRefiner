@@ -12,7 +12,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    build: ./frontend
+    build: ./webui
     ports:
       - "3000:3000"
     depends_on:

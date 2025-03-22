@@ -14,46 +14,6 @@ interface ResponseBoxProps {
 export const ResponseBox: React.FC<ResponseBoxProps> = ({ response }) => {
     const [theme, setTheme] = useState<string>("light");
 
-    const sampleMarkdown = `
-# Sample Markdown
-## This is a sub-heading
-### This is a sub-sub-heading
-#### This is a sub-sub-sub-heading
-This is a \`paragraph\` with some **bold** text and *italic* text. This is a [link](https://www.example.com).
-- This is a list
-- Item 2
-- Item 3
-    1. Item 3.1
-    2. Item 3.2
-    3. Item 3.3
-    
-1. This is an ordered list
-2. Item 2
-3. Item 3
-
-\`\`\`python
-def hello_world():
-    print("Hello, World!")
-\`\`\`
-
-| Header 1 | Header 2 |
-| -------- | -------- |
-| Cell 1   | Cell 2   |
-| Cell 3   | Cell 4   |
-
-~~strikethrough~~
-
-* [ ] task list
-* [x] checked item
-
-> This is a blockquote
-
-> This is a blockquote with multiple lines
-> Line 2
-> Line 3
-`;
-
-
     useEffect(() => {
         const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
         setTheme(isDarkMode ? "dark" : "light");

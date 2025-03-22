@@ -68,24 +68,21 @@ def get_domain(prompt):
 
 
 async def get_reasoning(prompt):
-    prompt = f"""
-Analyze the following user query and provide a detailed, step-by-step solution:
-
-**My Query:**
-"{prompt}"
-
-**Instructions:**
-1. Break down the problem into core components
-2. Generate reasoning for each logical step
-3. Present numbered instructions with clear dependencies
-4. Identify potential edge cases or missing information
-6. Limit the response to 5-7 steps with concise explanations with maximum 1-2 sentences each 
-and shouldn't have any code snippets, tables or too much info.
-5. Give the row unformatted output without any markdown or HTML tags. Newlines are allowed.
-     ...
-
+    system_prompt = f"""
+    You are an expert problem solver. Your task is to analyze the user query provided and deliver a detailed, step-by-step solution. Follow these instructions exactly:
+        1. Break down the problem into its core components.
+        2. Generate reasoning for each logical step.
+        3. Present numbered instructions with clear dependencies.
+        4. Identify potential edge cases or missing information.
+        5. Limit the response to 5-7 steps, with each step explained in 1-2 concise sentences.
+        6. Provide the output as raw, unformatted text without any markdown, HTML tags, code snippets, or tables (newlines are allowed).
         """
-    async for response_chunk in process_model_response('orca-mini', prompt):
+
+    user_prompt = f"""
+    My Query:
+        "{prompt}"
+        """
+    async for response_chunk in process_model_response('orca-mini', system_prompt, user_prompt):
         yield response_chunk
 
 
@@ -124,16 +121,23 @@ Processing with {model}
                     # This is my initial prompt: {prompt}
                     # Please use below reasoning to generate a better quality response:
                     model_prompt = reasoning if needReasoning else prompt
+                    system_prompt = f"""You are an expert in domain: {domain}"""
+                    user_prompt = f"""
+                    Here is my initial prompt: {prompt}
+                        I need a better quality response for this prompt.
+                        """
                 else:
                     # For subsequent models, add instructions and suggest improvements
-                    model_prompt = f"""
-Here is my initial prompt: {prompt}
-I tried to improve it with the previous model, and it produced below result but it can be way better:
-{whole_model_response}
-Please improve the response quality without making any comparisons or referencing with the previous model's response.
-"""
+                    system_prompt = 'You are an expert language model prompt enhancer. Your task is to take an initial prompt and an improved (but unsatisfactory) version produced by another model, and then generate a significantly refined version. Do not reference or compare with the previous output. Focus on clarity, coherence, and overall quality.Do not include phrases such as “Here’s a refined version...” or “Better version.” '
+                    user_prompt = f"""
+                    Here is my initial prompt: {prompt}
+                        I tried to improve it with the previous model, and it produced the result below, but it can be way better:
+                        {whole_model_response}
+                        Please improve the response quality without making any comparisons or referencing the previous model's response.
+                        No disclaimers or references to any prior instructions—just pure response
+                        """
 
-                async for response_chunk in process_model_response(model, model_prompt):
+                async for response_chunk in process_model_response(model, system_prompt, user_prompt):
                     whole_model_response += response_chunk
                     yield response_chunk
 
@@ -144,24 +148,41 @@ Please improve the response quality without making any comparisons or referencin
     return StreamingResponse(event_stream(), media_type="text/event-stream")
 
 
-async def process_model_response(model, model_prompt):
+async def process_model_response(model, system_prompt, user_prompt):
     try:
-        stream = await asyncClient.generate(
+        messages = [
+            {'role': 'system', 'content': system_prompt},
+            {'role': 'user', 'content': user_prompt}
+        ]
+        stream = await asyncClient.chat(
             model=model,
-            prompt=model_prompt,
+            messages=messages,
             stream=True
         )
         async for chunk in stream:
-            if not chunk or 'response' not in chunk:
-                logging.error("Received empty or malformed response chunk")
-                continue  # Don't yield empty chunks
+            print("CHUNK:", chunk)
+            if not chunk:
+                continue
 
-            yield chunk['response']  # Directly return the response text
+            # Handle different response formats
+            response_text = None
+            if isinstance(chunk, dict):
+                response_text = chunk.get('response') or chunk.get('message', {}).get('content')
+            elif 'message' in chunk and 'content' in chunk['message']:
+                response_text = chunk['message']['content']
+            elif isinstance(chunk, str):
+                try:
+                    chunk_dict = json.loads(chunk)
+                    response_text = chunk_dict.get('response') or chunk_dict.get('message', {}).get('content')
+                except json.JSONDecodeError:
+                    logging.error("Failed to parse chunk as JSON")
+
+            if response_text:
+                yield response_text
 
     except Exception as e:
         logging.error(f"Error generating response: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate response from Ollama")
-
 
 @app.post("/generate")
 async def generate(request: PromptRequest):

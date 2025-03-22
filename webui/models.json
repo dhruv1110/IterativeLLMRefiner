@@ -6,24 +6,23 @@
         "mistral:7b"
       ],
       "RESEARCH": [
-        "gemma:2b-q4",
-        "gemma2:2b-q4",
-        "deepseek-r1:7b-q4"
+        "gemma:7b-instruct-q4_K_M",
+        "gemma3:4b-it-q8_0",
+        "deepseek-r1:8b"
       ],
       "REASONING": [
-        "deepseek-r1:7b-q4",
-        "deepseek-v3:7b-q4",
-        "qwen2.5:7b-q4"
+        "deepseek-r1:8b",
+        "llama3.2:3b-instruct-fp16",
+        "qwen2.5:7b-instruct-q5_K_M"
       ],
       "CODING": [
-        "codellama:7b-q4",
-        "qwen2.5-coder:7b-q4",
-        "deepseek-coder:7b-q4"
+        "codellama:13b-code-q3_K_S",
+        "qwen2.5-coder:7b-instruct-q4_1",
+        "deepseek-coder:6.7b-instruct-q5_0"
       ],
       "VISION": [
-        "llava:7b-q4",
-        "llama3.2-vision:7b-q4",
-        "llava-llama3:7b-q4"
+        "minicpm-v:8b-2.6-q3_K_M",
+        "llava:7b"
       ]
     },
     "16GB": {
